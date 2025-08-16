@@ -165,9 +165,52 @@ function App() {
     Cookies.remove('crosswordState');
   };
 
-  // Helper: is crossword fully correct?
-  const isAllCorrect = checked.every(col => col.every(Boolean));
 
+
+  const handleBackspace = () => {
+    if (!selected) return;
+    const { col, square } = selected;
+    if (checked[col][square]) return;
+    const newLetters = letters.map(arr => [...arr]);
+    // If current square is not empty, clear it
+    if (newLetters[col][square] !== '') {
+      newLetters[col][square] = '';
+      setLetters(newLetters);
+      // Remove incorrect highlight if present
+      if (incorrect[col][square]) {
+        const newIncorrect = incorrect.map(arr => [...arr]);
+        newIncorrect[col][square] = false;
+        setIncorrect(newIncorrect);
+      }
+      return;
+    }
+    // If current square is empty, move to previous square
+    let prevCol = col;
+    let prevSq = square - 1;
+    while (prevSq < 0 && prevCol > 0) {
+      prevCol--;
+      prevSq = crossword[prevCol].answer.length - 1;
+    }
+    if (prevSq >= 0) {
+      setSelected({ col: prevCol, square: prevSq });
+      setTimeout(() => {
+        const inputs = document.querySelectorAll('.crossword-square');
+        const idx = crossword.slice(0, prevCol).reduce((acc, col) => acc + col.answer.length, 0) + prevSq;
+        if (inputs[idx]) (inputs[idx] as HTMLInputElement).focus();
+      }, 0);
+      // Clear previous square
+      const newLetters2 = letters.map(arr => [...arr]);
+      if (!checked[prevCol][prevSq]) {
+        newLetters2[prevCol][prevSq] = '';
+        setLetters(newLetters2);
+        if (incorrect[prevCol][prevSq]) {
+          const newIncorrect2 = incorrect.map(arr => [...arr]);
+          newIncorrect2[prevCol][prevSq] = false;
+          setIncorrect(newIncorrect2);
+        }
+      }
+    }
+  };
 
   return (
     <div className="crossword-app">
@@ -234,15 +277,18 @@ function App() {
               {l}
             </button>
           ))}
+          <button
+            key="Backspace"
+            className="keyboard-key backspace-key"
+            onClick={() => handleBackspace()}
+          >
+            ⌫
+          </button>
         </div>
       </div>
       <div className="crossword-buttons">
         <button onClick={handleClear}>Clear</button>
         <button onClick={handleCheck}>Check</button>
-      </div>
-      <div className="crossword-message">
-        {/* Show the message if all correct */}
-        {isAllCorrect ? <span className="success">Message: HELLO</span> : null}
       </div>
     </div>
   );
