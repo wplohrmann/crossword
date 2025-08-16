@@ -1,11 +1,14 @@
 /* Crossword QWERTY keyboard styles */
+
 .crossword-keyboard {
-  margin: 16px 0;
+  margin: 16px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 340px;
   width: 100%;
 }
+
 
 .keyboard-row {
   display: flex;
@@ -14,13 +17,14 @@
   width: 100%;
 }
 
+
 .keyboard-key {
   flex: 1 1 0;
-  min-width: 32px;
-  max-width: 40px;
-  height: 40px;
-  margin: 0 2px;
-  font-size: 1.2em;
+  min-width: 26px;
+  max-width: 32px;
+  height: 36px;
+  margin: 0 1.5px;
+  font-size: 1.1em;
   border-radius: 6px;
   border: 1px solid #bbb;
   background: #f8f8f8;
