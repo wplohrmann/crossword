@@ -249,6 +249,11 @@ function App() {
     }
   };
 
+  // Check if the entire grid is solved
+  const isSolved = crossword.every((col, colIdx) =>
+    col.answer.split('').every((char, sqIdx) => letters[colIdx][sqIdx] === char)
+  );
+
   return (
     <div className="crossword-app">
       <div className="clue-display">
@@ -261,22 +266,26 @@ function App() {
             className="crossword-column"
             style={{ marginTop: col.offset * 29.5 }}
           >
-            {Array.from({length: col.answer.length}).map((_, sqIdx) => (
-              <div
-                key={sqIdx}
-                tabIndex={0}
-                onClick={() => handleSelect(colIdx, sqIdx)}
-                className={`crossword-square${selected.col === colIdx && selected.square === sqIdx ? ' selected' : ''}${checked[colIdx][sqIdx] ? ' correct' : ''}${incorrect[colIdx][sqIdx] ? ' incorrect' : ''}`}
-                style={{
-                  userSelect: 'none',
-                  outline: 'none',
-                  cursor: checked[colIdx][sqIdx] ? 'default' : 'pointer',
-                }}
-                aria-label={`Square ${sqIdx + 1} of clue ${colIdx + 1}`}
-              >
-                {letters[colIdx][sqIdx]}
-              </div>
-            ))}
+            {Array.from({length: col.answer.length}).map((_, sqIdx) => {
+              // Highlight if solved and this square is in the highlight array
+              const highlightClass = isSolved && col.highlight.includes(sqIdx) ? ' highlight' : '';
+              return (
+                <div
+                  key={sqIdx}
+                  tabIndex={0}
+                  onClick={() => handleSelect(colIdx, sqIdx)}
+                  className={`crossword-square${selected.col === colIdx && selected.square === sqIdx ? ' selected' : ''}${checked[colIdx][sqIdx] ? ' correct' : ''}${incorrect[colIdx][sqIdx] ? ' incorrect' : ''}${highlightClass}`}
+                  style={{
+                    userSelect: 'none',
+                    outline: 'none',
+                    cursor: checked[colIdx][sqIdx] ? 'default' : 'pointer',
+                  }}
+                  aria-label={`Square ${sqIdx + 1} of clue ${colIdx + 1}`}
+                >
+                  {letters[colIdx][sqIdx]}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>

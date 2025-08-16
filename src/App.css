@@ -108,6 +108,13 @@
   color: #176c2a;
   /* No background or border-color change for correct squares */
 }
+
+.crossword-square.highlight {
+  background: #b47cff;
+  border-color: #8a2be2;
+  color: #fff;
+}
+
 .crossword-square:disabled {
   cursor: not-allowed;
   opacity: 0.8;
