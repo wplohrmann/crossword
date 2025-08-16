@@ -264,7 +264,7 @@ function App() {
           <div
             key={colIdx}
             className="crossword-column"
-            style={{ marginTop: col.offset * 29.5 }}
+            style={{ marginTop: col.offset * 30 }}
           >
             {Array.from({length: col.answer.length}).map((_, sqIdx) => {
               // Highlight if solved and this square is in the highlight array
