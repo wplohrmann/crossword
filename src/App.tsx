@@ -45,14 +45,45 @@ function App() {
 
   const handleInput = (colIdx: number, squareIdx: number, value: string) => {
     if (checked[colIdx][squareIdx]) return; // lock correct answers
+    const letter = value.toUpperCase().slice(0, 1); // Only one letter
     const newLetters = letters.map(arr => [...arr]);
-    newLetters[colIdx][squareIdx] = value.toUpperCase().slice(0, 1);
+    newLetters[colIdx][squareIdx] = letter;
     setLetters(newLetters);
     // Remove incorrect highlight if deleted
-    if (incorrect[colIdx][squareIdx] && value === '') {
+    if (incorrect[colIdx][squareIdx] && letter === '') {
       const newIncorrect = incorrect.map(arr => [...arr]);
       newIncorrect[colIdx][squareIdx] = false;
       setIncorrect(newIncorrect);
+    }
+
+    // Move focus to next available square if a letter was entered
+    if (letter !== '') {
+      let nextCol = colIdx;
+      const nextSq = squareIdx + 1;
+      // If next square in column exists
+      if (nextSq < crossword[nextCol].answer.length) {
+        setSelected({ col: nextCol, square: nextSq });
+        // Try to focus the next input
+        setTimeout(() => {
+          const inputs = document.querySelectorAll('.crossword-square');
+          const idx = crossword.slice(0, nextCol).reduce((acc, col) => acc + col.answer.length, 0) + nextSq;
+          if (inputs[idx]) (inputs[idx] as HTMLInputElement).focus();
+        }, 0);
+      } else {
+        // Move to first square of next column if exists
+        nextCol++;
+        while (nextCol < crossword.length && crossword[nextCol].answer.length === 0) {
+          nextCol++;
+        }
+        if (nextCol < crossword.length) {
+          setSelected({ col: nextCol, square: 0 });
+          setTimeout(() => {
+            const inputs = document.querySelectorAll('.crossword-square');
+            const idx = crossword.slice(0, nextCol).reduce((acc, col) => acc + col.answer.length, 0);
+            if (inputs[idx]) (inputs[idx] as HTMLInputElement).focus();
+          }, 0);
+        }
+      }
     }
   };
 
