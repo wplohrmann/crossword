@@ -87,6 +87,12 @@ function App() {
     }
   };
 
+  // Custom keyboard handler
+  const handleKeyboardInput = (letter: string) => {
+    if (!selected) return;
+    handleInput(selected.col, selected.square, letter);
+  };
+
   const handleCheck = () => {
     const newChecked = checked.map(arr => [...arr]);
     const newIncorrect = incorrect.map(arr => [...arr]);
@@ -142,6 +148,19 @@ function App() {
               />
             ))}
           </div>
+        ))}
+      </div>
+      {/* Custom keyboard for mobile usability */}
+      <div className="crossword-keyboard">
+        {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map(l => (
+          <button
+            key={l}
+            className="keyboard-key"
+            onClick={() => handleKeyboardInput(l)}
+            disabled={!selected || (selected && checked[selected.col][selected.square])}
+          >
+            {l}
+          </button>
         ))}
       </div>
       <div className="crossword-buttons">
