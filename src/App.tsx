@@ -154,18 +154,44 @@ function App() {
           </div>
         ))}
       </div>
-      {/* Custom keyboard for mobile usability */}
+      {/* Custom QWERTY keyboard for mobile usability */}
       <div className="crossword-keyboard">
-        {[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map(l => (
-          <button
-            key={l}
-            className="keyboard-key"
-            onClick={() => handleKeyboardInput(l)}
-            disabled={!selected || (selected && checked[selected.col][selected.square])}
-          >
-            {l}
-          </button>
-        ))}
+        <div className="keyboard-row">
+          {[...'QWERTYUIOP'].map(l => (
+            <button
+              key={l}
+              className="keyboard-key"
+              onClick={() => handleKeyboardInput(l)}
+              disabled={!selected || (selected && checked[selected.col][selected.square])}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+        <div className="keyboard-row">
+          {[...'ASDFGHJKL'].map(l => (
+            <button
+              key={l}
+              className="keyboard-key"
+              onClick={() => handleKeyboardInput(l)}
+              disabled={!selected || (selected && checked[selected.col][selected.square])}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+        <div className="keyboard-row">
+          {[...'ZXCVBNM'].map(l => (
+            <button
+              key={l}
+              className="keyboard-key"
+              onClick={() => handleKeyboardInput(l)}
+              disabled={!selected || (selected && checked[selected.col][selected.square])}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="crossword-buttons">
         <button onClick={handleClear}>Clear</button>
