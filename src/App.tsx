@@ -5,24 +5,52 @@ import './App.css';
 // Hardcoded crossword data
 const crossword = [
   {
-    clue: '1. First two letters of the message',
-    answer: 'HE',
+    clue: "Good day! That's some Bourbon journal",
+    answer: 'BONJOUR',
+    highlight: [0],
+    offset: 8,
+  },
+  {
+    clue: 'Contemplating skinny royal',
+    answer: 'THINKING',
+    highlight: [1, 2],
+    offset: 6,
+  },
+  {
+    clue: 'ARROW TODO',
+    answer: 'ARROW',
+    highlight: [0, 1],
+    offset: 7,
+  },
+  {
+    clue: 'Suitable Mars hit',
+    answer: 'APT',
+    highlight: [1, 2],
+    offset: 6,
+  },
+  {
+    clue: 'TODO PHALLUS',
+    answer: 'PHALLUS',
+    highlight: [0, 1],
+    offset: 7,
+  },
+  {
+    clue: "Overheard in Toulouse: Help me, I'm crashing",
+    answer: 'MAYDAY',
+    highlight: [2, 3],
+    offset: 5,
+  },
+  {
+    clue: 'STANFORD todo',
+    answer: 'STANFORD',
+    highlight: [2],
+    offset: 6,
+  },
+  {
+    clue: 'Über the German, my stuffed animal',
+    answer: 'TAXIDERMY',
+    highlight: [8],
     offset: 0,
-  },
-  {
-    clue: '2. Third letter of the message',
-    answer: 'L',
-    offset: 1,
-  },
-  {
-    clue: '3. Fourth letter of the message',
-    answer: 'L',
-    offset: 2,
-  },
-  {
-    clue: '4. Fifth letter of the message',
-    answer: 'O',
-    offset: 3,
   },
 ];
 
@@ -231,7 +259,7 @@ function App() {
           <div
             key={colIdx}
             className="crossword-column"
-            style={{ marginTop: col.offset * 30 }}
+            style={{ marginTop: col.offset * 29.5 }}
           >
             {Array.from({length: col.answer.length}).map((_, sqIdx) => (
               <div

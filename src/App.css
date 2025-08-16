@@ -43,22 +43,21 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
 .crossword-app {
   max-width: 400px;
-  margin: 0.5rem auto 0 auto;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  padding: 1.2rem 1rem 1.2rem 1rem;
+  padding: 0.5rem;
 }
 
 .clue-display {
   font-size: 1.1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.3rem;
   min-height: 2.2em;
   color: #333;
   font-weight: 500;
@@ -70,29 +69,29 @@
   justify-content: center;
   align-items: flex-start;
   min-height: 120px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .crossword-column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 8px;
+  margin: 0 4px;
 }
 
 .crossword-square {
-  width: 48px;
-  height: 48px;
-  font-size: 2rem;
+  width: 24px;
+  height: 24px;
+  font-size: 1rem;
   font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   border: 2px solid #bbb;
-  border-radius: 8px;
+  border-radius: 3px;
   background: #f7f7f7;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   transition: border-color 0.2s, background 0.2s, color 0.2s;
   outline: none;
   color: #222;
@@ -118,7 +117,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.2rem;
 }
 .crossword-buttons button {
   padding: 0.5em 1.2em;
@@ -132,45 +131,4 @@
 }
 .crossword-buttons button:hover {
   background: #4b51c6;
-}
-
-.success {
-  color: #176c2a;
-  font-weight: bold;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
