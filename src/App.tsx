@@ -136,16 +136,20 @@ function App() {
             style={{ marginTop: col.offset * 30 }}
           >
             {Array.from({length: col.answer.length}).map((_, sqIdx) => (
-              <input
+              <div
                 key={sqIdx}
-                type="text"
-                maxLength={1}
-                value={letters[colIdx][sqIdx]}
-                onFocus={() => handleSelect(colIdx, sqIdx)}
-                onChange={e => handleInput(colIdx, sqIdx, e.target.value)}
+                tabIndex={0}
+                onClick={() => handleSelect(colIdx, sqIdx)}
                 className={`crossword-square${selected && selected.col === colIdx && selected.square === sqIdx ? ' selected' : ''}${checked[colIdx][sqIdx] ? ' correct' : ''}${incorrect[colIdx][sqIdx] ? ' incorrect' : ''}`}
-                disabled={checked[colIdx][sqIdx]}
-              />
+                style={{
+                  userSelect: 'none',
+                  outline: 'none',
+                  cursor: checked[colIdx][sqIdx] ? 'default' : 'pointer',
+                }}
+                aria-label={`Square ${sqIdx + 1} of clue ${colIdx + 1}`}
+              >
+                {letters[colIdx][sqIdx]}
+              </div>
             ))}
           </div>
         ))}
