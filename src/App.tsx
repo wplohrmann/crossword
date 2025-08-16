@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import './App.css';
 
 // Hardcoded crossword data
@@ -26,17 +27,35 @@ const crossword = [
 ];
 
 function App() {
+  // Load state from cookie if available
+  const saved = Cookies.get('crosswordState');
+  let initialLetters = crossword.map(col => Array(col.answer.length).fill(''));
+  let initialChecked = crossword.map(col => Array(col.answer.length).fill(false));
+  let initialIncorrect = crossword.map(col => Array(col.answer.length).fill(false));
+  let initialSelected = { col: 0, square: 0 };
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed.letters && parsed.checked && parsed.incorrect && parsed.selected) {
+        initialLetters = parsed.letters;
+        initialChecked = parsed.checked;
+        initialIncorrect = parsed.incorrect;
+        initialSelected = parsed.selected;
+      }
+    } catch {
+      // Ignore cookie parse errors and fall back to default state
+    }
+  }
   // State: letters[col][square], checked[col][square], incorrect[col][square]
-  const [selected, setSelected] = useState<{col: number, square: number}>({ col: 0, square: 0 });
-  const [letters, setLetters] = useState<string[][]>(
-    crossword.map(col => Array(col.answer.length).fill(''))
-  );
-  const [checked, setChecked] = useState<boolean[][]>(
-    crossword.map(col => Array(col.answer.length).fill(false))
-  );
-  const [incorrect, setIncorrect] = useState<boolean[][]>(
-    crossword.map(col => Array(col.answer.length).fill(false))
-  );
+  const [selected, setSelected] = useState<{col: number, square: number}>(initialSelected);
+  const [letters, setLetters] = useState<string[][]>(initialLetters);
+  const [checked, setChecked] = useState<boolean[][]>(initialChecked);
+  const [incorrect, setIncorrect] = useState<boolean[][]>(initialIncorrect);
+  // Save state to cookie whenever relevant state changes
+  useEffect(() => {
+    const state = { letters, checked, incorrect, selected };
+    Cookies.set('crosswordState', JSON.stringify(state), { expires: 365 });
+  }, [letters, checked, incorrect, selected]);
 
   const handleSelect = (colIdx: number, squareIdx: number) => {
     setSelected({col: colIdx, square: squareIdx});
@@ -116,6 +135,7 @@ function App() {
     setChecked(crossword.map(col => Array(col.answer.length).fill(false)));
     setIncorrect(crossword.map(col => Array(col.answer.length).fill(false)));
     setSelected({ col: 0, square: 0 });
+    Cookies.remove('crosswordState');
   };
 
   // Helper: is crossword fully correct?
