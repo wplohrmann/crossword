@@ -108,6 +108,33 @@ function App() {
   // Custom keyboard handler
   const handleKeyboardInput = (letter: string) => {
     if (!selected) return;
+    if (checked[selected.col][selected.square]) {
+      // If checked, move to next square without changing the letter
+      let nextCol = selected.col;
+      const nextSq = selected.square + 1;
+      if (nextSq < crossword[nextCol].answer.length) {
+        setSelected({ col: nextCol, square: nextSq });
+        setTimeout(() => {
+          const inputs = document.querySelectorAll('.crossword-square');
+          const idx = crossword.slice(0, nextCol).reduce((acc, col) => acc + col.answer.length, 0) + nextSq;
+          if (inputs[idx]) (inputs[idx] as HTMLInputElement).focus();
+        }, 0);
+      } else {
+        nextCol++;
+        while (nextCol < crossword.length && crossword[nextCol].answer.length === 0) {
+          nextCol++;
+        }
+        if (nextCol < crossword.length) {
+          setSelected({ col: nextCol, square: 0 });
+          setTimeout(() => {
+            const inputs = document.querySelectorAll('.crossword-square');
+            const idx = crossword.slice(0, nextCol).reduce((acc, col) => acc + col.answer.length, 0);
+            if (inputs[idx]) (inputs[idx] as HTMLInputElement).focus();
+          }, 0);
+        }
+      }
+      return;
+    }
     handleInput(selected.col, selected.square, letter);
   };
 
@@ -181,7 +208,6 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
@@ -193,7 +219,6 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
@@ -205,7 +230,6 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
