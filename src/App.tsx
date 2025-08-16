@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import './App.css';
 
@@ -28,7 +27,7 @@ const crossword = [
 
 function App() {
   // State: letters[col][square], checked[col][square], incorrect[col][square]
-  const [selected, setSelected] = useState<{col: number, square: number} | null>(null);
+  const [selected, setSelected] = useState<{col: number, square: number}>({ col: 0, square: 0 });
   const [letters, setLetters] = useState<string[][]>(
     crossword.map(col => Array(col.answer.length).fill(''))
   );
@@ -116,17 +115,17 @@ function App() {
     setLetters(crossword.map(col => Array(col.answer.length).fill('')));
     setChecked(crossword.map(col => Array(col.answer.length).fill(false)));
     setIncorrect(crossword.map(col => Array(col.answer.length).fill(false)));
-    setSelected(null);
+    setSelected({ col: 0, square: 0 });
   };
 
   // Helper: is crossword fully correct?
   const isAllCorrect = checked.every(col => col.every(Boolean));
 
+
   return (
     <div className="crossword-app">
-      <h2>Simple Crossword</h2>
       <div className="clue-display">
-        {selected ? crossword[selected.col].clue : 'Select a square to see the clue'}
+        {crossword[selected.col].clue}
       </div>
       <div className="crossword-grid">
         {crossword.map((col, colIdx) => (
@@ -140,7 +139,7 @@ function App() {
                 key={sqIdx}
                 tabIndex={0}
                 onClick={() => handleSelect(colIdx, sqIdx)}
-                className={`crossword-square${selected && selected.col === colIdx && selected.square === sqIdx ? ' selected' : ''}${checked[colIdx][sqIdx] ? ' correct' : ''}${incorrect[colIdx][sqIdx] ? ' incorrect' : ''}`}
+                className={`crossword-square${selected.col === colIdx && selected.square === sqIdx ? ' selected' : ''}${checked[colIdx][sqIdx] ? ' correct' : ''}${incorrect[colIdx][sqIdx] ? ' incorrect' : ''}`}
                 style={{
                   userSelect: 'none',
                   outline: 'none',
@@ -162,7 +161,7 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={!selected || (selected && checked[selected.col][selected.square])}
+              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
@@ -174,7 +173,7 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={!selected || (selected && checked[selected.col][selected.square])}
+              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
@@ -186,7 +185,7 @@ function App() {
               key={l}
               className="keyboard-key"
               onClick={() => handleKeyboardInput(l)}
-              disabled={!selected || (selected && checked[selected.col][selected.square])}
+              disabled={checked[selected.col][selected.square]}
             >
               {l}
             </button>
