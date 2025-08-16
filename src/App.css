@@ -1,0 +1,136 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.crossword-app {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  padding: 2rem 1rem 1.5rem 1rem;
+}
+
+.clue-display {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  min-height: 2.2em;
+  color: #333;
+  font-weight: 500;
+}
+
+.crossword-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 120px;
+  margin-bottom: 1.5rem;
+}
+
+.crossword-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 8px;
+}
+
+.crossword-square {
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid #bbb;
+  border-radius: 8px;
+  background: #f7f7f7;
+  margin-bottom: 8px;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  outline: none;
+  color: #222;
+}
+.crossword-square.selected {
+  border-color: #646cff;
+  background: #e6eaff;
+}
+.crossword-square.incorrect {
+  background: #ffeaea;
+  border-color: #e74c3c;
+}
+.crossword-square.correct {
+  color: #176c2a;
+  background: #eafbe7;
+  border-color: #176c2a;
+}
+.crossword-square:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.crossword-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.crossword-buttons button {
+  padding: 0.5em 1.2em;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  background: #646cff;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.crossword-buttons button:hover {
+  background: #4b51c6;
+}
+
+.crossword-message {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  min-height: 1.5em;
+}
+.success {
+  color: #176c2a;
+  font-weight: bold;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
