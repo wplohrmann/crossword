@@ -17,7 +17,7 @@ const crossword = [
     offset: 6,
   },
   {
-    clue: 'ARROW TODO',
+    clue: 'Bone marrow contains spike',
     answer: 'ARROW',
     highlight: [0, 1],
     offset: 7,
@@ -29,19 +29,19 @@ const crossword = [
     offset: 6,
   },
   {
-    clue: 'TODO PHALLUS',
+    clue: 'Member of pan-America after acidity measure',
     answer: 'PHALLUS',
     highlight: [0, 1],
     offset: 7,
   },
   {
-    clue: "Overheard in Toulouse: Help me, I'm crashing",
+    clue: "Overheard in Thoulouze: Help me, I'm crashing",
     answer: 'MAYDAY',
     highlight: [2, 3],
     offset: 5,
   },
   {
-    clue: 'STANFORD todo',
+    clue: 'Doctor Frost and Leland Jr.s school',
     answer: 'STANFORD',
     highlight: [2],
     offset: 6,
