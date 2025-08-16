@@ -82,8 +82,6 @@ function App() {
     setSelected(null);
   };
 
-  // Helper: is column fully correct?
-  const isColCorrect = (colIdx: number) => checked[colIdx].every(Boolean);
   // Helper: is crossword fully correct?
   const isAllCorrect = checked.every(col => col.every(Boolean));
 
