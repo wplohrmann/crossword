@@ -165,6 +165,15 @@ function App() {
     Cookies.remove('crosswordState');
   };
 
+  // Delete incorrect letters
+  const handleClearIncorrect = () => {
+    setLetters(letters.map((col, colIdx) =>
+      col.map((letter, sqIdx) => (incorrect[colIdx][sqIdx] ? '' : letter))
+    ));
+    const newIncorrect = incorrect.map(arr => arr.map(() => false));
+    setIncorrect(newIncorrect);
+  };
+
 
 
   const handleBackspace = () => {
@@ -288,6 +297,7 @@ function App() {
       </div>
       <div className="crossword-buttons">
         <button onClick={handleClear}>Clear</button>
+        <button onClick={handleClearIncorrect}>Clear Incorrect</button>
         <button onClick={handleCheck}>Check</button>
       </div>
     </div>
